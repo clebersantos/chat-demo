@@ -1,0 +1,52 @@
+version: '3.1'
+
+services:
+  mongo:
+    image: mongo
+    container_name: chat-db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+    networks:
+      - chat_network
+
+  mongo-express:
+    image: mongo-express
+    container_name: chat-mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+    networks:
+      - chat_network
+
+  chat-api:
+    image: node:11-alpine
+    container_name: chat-api
+    working_dir: /home/node/app
+    user: "node"
+    healthcheck:
+      test: ["CMD", "curl", "-sS", "http://localhost:3000"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - "3000:3000"
+    command:
+      sh -c 'cp .env.example .env && npm i && npm start'
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    networks:
+      - chat_network
+networks:
+  chat_network:
+    driver: bridge
