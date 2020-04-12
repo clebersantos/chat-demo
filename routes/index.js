@@ -27,7 +27,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/chat', authenticationMiddleware(), function (req, res) {
-  res.render('chat', {});
+  res.render('chat', {  title: 'Chat' });
 });
 
 router.get('/users/:pagina?', authenticationMiddleware(), function (req, res) {

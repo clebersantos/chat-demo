@@ -1,19 +1,28 @@
 <!doctype html>
 <html>
-  <body>
-    <h1>Login</h1>
-    <form action="/login" method="POST">
-      <input name="username" type="text" /><br />
-      <input name="password" type="password" /><br />
-      <input type="submit" value="Login" />
-    </form>
-    <% if(message) { %>
+<head>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+  <div class="logon-container">
+    <section class="form">
+
+      <h1>Login</h1>
+      <form action="/login" method="POST">
+        <input name="username" type="text" /><br />
+        <input name="password" type="password" /><br />
+        <input type="submit" value="Login" />
+      </form>
+      <% if(message) { %>
       <p>
         <label style="color:Red"><%= message %></label>
       </p>
-    <%}%>
-    <p>
-      <a href="javascript:void(0)" onClick="alert('comming soon')">Esqueceu sua senha?</a> | <a href="/new">Não possui cadastro?</a>
-    </p>
-  </body>
+      <%}%>
+      <p>
+        <a href="javascript:void(0)" onClick="alert('comming soon')">Esqueceu sua senha?</a> | <a href="/new">Não possui cadastro?</a>
+      </p>
+    </section>
+    <img src="/images/heroes.png" alt="Heroes" />
+  </div>
+</body>
 </html>

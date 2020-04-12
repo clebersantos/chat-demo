@@ -28,6 +28,7 @@ services:
   chat-api:
     image: node:11-alpine
     container_name: chat-api
+    restart: always
     working_dir: /home/node/app
     user: "node"
     healthcheck:
