@@ -27,11 +27,12 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/chat', authenticationMiddleware(), function (req, res) {
-  res.render('chat', {  title: 'Chat' });
+  res.render('chat', {  title: 'Chat', user: req.user });
 });
 
 router.get('/users/:pagina?', authenticationMiddleware(), function (req, res) {
   const pagina = parseInt(req.params.pagina || "1");
+
   global.db.findAll(pagina, (e, docs) => {
     if (e) { return console.log(e); }
 
